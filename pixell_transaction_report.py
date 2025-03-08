@@ -89,6 +89,9 @@ try:
                     )
             
             ### COLLECT INVALID RECORDS ###
+            else:
+                rejected_transactions.append((transaction, 
+                                              error_message))
 except FileNotFoundError:
     print(f"The bank data file {csv_file} cannot be found.")
 
