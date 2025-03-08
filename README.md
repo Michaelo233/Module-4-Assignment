@@ -14,3 +14,7 @@ to the users.
 - I will also run through the program using a debuging tool, to make 
 sure that there isn't any logic errors, and to modify the program if 
 needed, to ensure that the code runs properly as expected.
+
+## Code Modification 1
+
+- Added error handling when the data file is not within the application directory.
