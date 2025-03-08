@@ -52,10 +52,19 @@ try:
             transaction_type = transaction[1]
 
             ### VALIDATION 1 ###
-
+            if transaction_type not in valid_transaction_types:
+                is_valid_record = False
+                error_message = (f'The transaction type '
+                                 + f'"{transaction_type}" is invalid.')
+                
             ### VALIDATION 2 ###
-            # Gets the transaction amount from the third column
-            transaction_amount = float(transaction[2])
+            try:
+                # Gets the transaction amount from the third column
+                transaction_amount = float(transaction[2])
+            except ValueError:
+                is_valid_record = False
+                error_message = (f'"{transaction[2]}" is an invalid'
+                                 f' transaction amount.')
 
             if is_valid_record:
                 # Initialize the customer's account balance if it doesn't 
