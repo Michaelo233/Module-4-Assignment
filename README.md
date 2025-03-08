@@ -21,6 +21,7 @@ needed, to ensure that the code runs properly as expected.
  directory.
 
  ## Code Modification 2
+
  - Validation 1: I add a logic to check transaction types that are not 
  correct, and rise an invalid transaction type  message for the users.
  - Validation 2: I added an exception to catch transaction amounts that
@@ -30,3 +31,17 @@ needed, to ensure that the code runs properly as expected.
  collects all invalid transactions, both transaction type or amount,
  together with the transaction information, and store them in a tuple, 
  and added them to the list of rejected transactions.
+
+ ## Code Modification 3
+
+ - ZerodivisionError: Added a zerodivision exception to code 155 to 199
+ when getting the average of total transaction. 
+
+ ## Code Modification 4
+ - noticed that balance is not reflecting the first transaction,
+ i change the elif statement to an if statement.
+ - Also the Transaction counter was not increasing per valid 
+ transaction, so i added a transaction counter increament if the 
+ for every valid transaction.
+ - Average Transaction Amount was zero because of a logic error
+ i fix earlier, but now showing the correct value per valid transaction.

@@ -67,14 +67,16 @@ try:
                                  f' transaction amount.')
 
             if is_valid_record:
+                # ensure every transaction is counted
+                transaction_counter += 1
                 # Initialize the customer's account balance if it doesn't 
                 # already exist
                 if customer_id not in customer_data:
-                    customer_data[customer_id] = {'balance': 0, 
-                                                  'transactions': []}
+                    customer_data[customer_id] = (
+                        {'balance': 0, 'transactions': []})
                 # Update the customer's account balance based on the 
                 # transaction type
-                elif transaction_type == 'deposit':
+                if transaction_type == 'deposit':
                     customer_data[customer_id]['balance'] += transaction_amount
                     transaction_count += 1
                     total_transaction_amount += transaction_amount
@@ -90,8 +92,8 @@ try:
             
             ### COLLECT INVALID RECORDS ###
             else:
-                rejected_transactions.append((transaction, 
-                                              error_message))
+                rejected_message = (transaction, error_message)
+                rejected_transactions.append(rejected_message)
 except FileNotFoundError:
     print(f"The bank data file {csv_file} cannot be found.")
 
@@ -112,8 +114,15 @@ for customer_id, data in customer_data.items():
         amount, type = rejected_transaction
         print(f"{type.capitalize():>16}:{amount:>12}")
 
-average_transaction_amount = total_transaction_amount / transaction_counter
-print(f"AVERAGE TRANSACTION AMOUNT: {average_transaction_amount}")
+try:
+    average_transaction_amount = (total_transaction_amount / 
+                                  transaction_counter)
+    print(f"AVERAGE TRANSACTION AMOUNT: {average_transaction_amount}")
+except ZeroDivisionError:
+    transaction_counter = 1
+    average_transaction_amount = (total_transaction_amount / 
+                                  transaction_counter)
+    print(f"AVERAGE TRANSACTION AMOUNT: {average_transaction_amount}")
 
 rejected_report_title = "REJECTED RECORDS"
 print(rejected_report_title)
